@@ -1,0 +1,8 @@
+Sistem Operasi, Kamis, 11:10 - 12:00, 1
+Teori Bahasa Automata, Ahad, 09:30 - 11:00, 2
+Basis Data, Kamis, 07:30 - 09:00, 3
+Analisis dan Perancangan Sistem, Rabu, 11:10 - 12:00, 1
+Pemrograman Berorientasi Objek, Senin, 09:30 - 11:00, 2
+Statistika, Selasa, 11:10 - 12:00, 3
+Teori Peluang, Selasa, 09:30 - 11:00, 1
+Desain Antarmuka, Selasa, 07:30 - 09:00, 1

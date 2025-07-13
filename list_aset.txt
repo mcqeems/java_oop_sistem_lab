@@ -1,0 +1,7 @@
+Komputer Desktop;15
+Proyektor;4
+Kabel HDMI;10
+Papan Tulis Digital;2
+Mikrofon Kondenser;5
+Router Jaringan;3
+Kabel LAN (meter);50

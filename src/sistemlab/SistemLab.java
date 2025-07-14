@@ -103,7 +103,6 @@ public class SistemLab {
         } while (pilihan != 0);
     }
 
-    // --- BUAT METODE UNTUK MENU MANAJEMEN DATA ---
     private void tampilkanMenuManajemenData(Scanner scanner) {
         System.out.println("\n--- MENU MANAJEMEN DATA ---");
         System.out.println("1. Kelola Aset (Tambah/Hapus)");
@@ -151,7 +150,7 @@ public class SistemLab {
                 .filter(aset -> aset.getJumlah() > 0)
                 .forEach(System.out::println);
         System.out.println("----------------------------------------------");
-        System.out.print("\nTekan Enter untuk kembali...");
+        System.out.println("\nTekan Enter untuk kembali...");
         new Scanner(System.in).nextLine();
     }
 
@@ -293,10 +292,20 @@ public class SistemLab {
             int nomorHapus = scanner.nextInt();
             scanner.nextLine();
 
-            if(nomorHapus > 0 && nomorHapus <= daftarAset.size()){
+            System.out.print("Masukkan jumlah untuk dihapus: ");
+            int jumlahHapus = scanner.nextInt();
+            scanner.nextLine();
+
+            if(nomorHapus > 0 && nomorHapus <= daftarAset.size() && jumlahHapus == daftarAset.get(nomorHapus-1).getJumlah()){
                 Aset asetDihapus = daftarAset.remove(nomorHapus - 1);
                 System.out.println("Aset '" + asetDihapus.getNamaAset() + "' Berhasil dihapus.");
-            } else {
+            } else if (nomorHapus > 0 && nomorHapus <= daftarAset.size() && jumlahHapus != daftarAset.get(nomorHapus-1).getJumlah()){
+                int pengurangan = daftarAset.get(nomorHapus - 1).getJumlah() - jumlahHapus;
+                Aset asetDikurang = daftarAset.get(nomorHapus - 1);
+                asetDikurang.setJumlah(pengurangan);
+                System.out.println(jumlahHapus + " " + asetDikurang.getNamaAset() + "' Berhasil dihapus.");
+            }
+            else {
                 System.out.println("Nomor tidak valid.");
             }
         }

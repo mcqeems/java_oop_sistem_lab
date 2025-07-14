@@ -17,6 +17,11 @@ public class Aset {
         return jumlah;
     }
 
+    public Aset setJumlah(int jumlah) {
+        this.jumlah = jumlah;
+        return null;
+    }
+
     public void pinjam(int jumlahPinjam){
         if(this.jumlah >= jumlahPinjam){
             this.jumlah -= jumlahPinjam;

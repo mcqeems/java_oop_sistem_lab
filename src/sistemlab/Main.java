@@ -15,8 +15,6 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
- 
- 
     private static List<Aset> daftarAset = new ArrayList<>();
     private static List<Jadwal> daftarJadwal = new ArrayList<>();
     private static List<RuangLab> daftarRuang = new ArrayList<>();

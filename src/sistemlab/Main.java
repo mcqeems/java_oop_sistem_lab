@@ -97,7 +97,7 @@ public class Main {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(",");
-                if (data.length == 4) { // Mata Kuliah, Hari, Waktu, KodeLab
+                if (data.length == 4) {
                     daftarJadwal.add(new Jadwal(data[0].trim(), data[1].trim(), data[2].trim(), data[3].trim()));
                 }
             }

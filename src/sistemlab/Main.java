@@ -1,11 +1,4 @@
-
 package sistemlab;
-
-import sistemlab.aset.Aset;
-import sistemlab.jadwal.Jadwal;
-import sistemlab.peminjaman.Pengajuan;
-import sistemlab.pengguna.*;
-import sistemlab.ruanglab.RuangLab;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -13,15 +6,20 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import sistemlab.aset.Aset;
+import sistemlab.jadwal.Jadwal;
+import sistemlab.peminjaman.Pengajuan;
+import sistemlab.pengguna.*;
+import sistemlab.ruanglab.RuangLab;
 
 public class Main {
+
     private static List<Aset> daftarAset = new ArrayList<>();
     private static List<Jadwal> daftarJadwal = new ArrayList<>();
     private static List<RuangLab> daftarRuang = new ArrayList<>();
     private static List<Pengajuan> daftarPengajuan = new ArrayList<>();
 
     public static void main(String[] args) {
- 
         inisialisasiData();
 
         Scanner scanner = new Scanner(System.in);
@@ -29,14 +27,13 @@ public class Main {
         while (true) {
             Pengguna penggunaSaatIni = login(scanner);
             if (penggunaSaatIni == null) {
- 
                 System.out.println("Terima kasih telah menggunakan sistem. Sampai jumpa!");
                 break;
             }
 
             System.out.println("\nLogin berhasil! Selamat datang, " + penggunaSaatIni.getNama() + ".");
             System.out.println("---------------------------------------------");
- 
+
             SistemLab sistem = new SistemLab(penggunaSaatIni, daftarAset, daftarJadwal, daftarRuang, daftarPengajuan);
             sistem.tampilkanMenu(scanner);
         }
@@ -68,9 +65,12 @@ public class Main {
         String nama = scanner.nextLine();
 
         switch (pilihanRole) {
-            case 1: return new Mahasiswa(id, nama);
-            case 2: return new Dosen(id, nama);
-            case 3: return new AsistenLab(id, nama);
+            case 1:
+                return new Mahasiswa(id, nama);
+            case 2:
+                return new Dosen(id, nama);
+            case 3:
+                return new AsistenLab(id, nama);
             default:
                 System.out.println("Pilihan tidak valid. Silakan coba lagi.");
                 return login(scanner);
@@ -78,7 +78,6 @@ public class Main {
     }
 
     public static void inisialisasiData() {
- 
         try (BufferedReader br = new BufferedReader(new FileReader("list_aset.txt"))) {
             String line;
             while ((line = br.readLine()) != null) {
@@ -90,8 +89,8 @@ public class Main {
         } catch (IOException | NumberFormatException e) {
             System.err.println("Error membaca list_aset.txt");
         }
- 
-        try (BufferedReader br = new BufferedReader(new FileReader("jadwal_siakad.txt"))) {
+
+        try (BufferedReader br = new BufferedReader(new FileReader("list_jadwal.txt"))) {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(",");
@@ -100,9 +99,9 @@ public class Main {
                 }
             }
         } catch (IOException e) {
-            System.err.println("Error membaca jadwal_siakad.txt");
+            System.err.println("Error membaca list_jadwal.txt");
         }
- 
+
         daftarRuang.add(new RuangLab("1", "Lab AI", 40));
         daftarRuang.add(new RuangLab("2", "Lab RPL", 35));
         daftarRuang.add(new RuangLab("3", "Lab Data Science", 30));

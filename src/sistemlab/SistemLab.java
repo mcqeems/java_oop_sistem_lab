@@ -1,23 +1,32 @@
 package sistemlab;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.List;
+import java.util.Scanner;
+import java.util.stream.Collectors;
 import sistemlab.aset.Aset;
 import sistemlab.jadwal.Jadwal;
 import sistemlab.peminjaman.Pengajuan;
 import sistemlab.pengguna.*;
 import sistemlab.ruanglab.RuangLab;
 
-import java.util.List;
-import java.util.Scanner;
-import java.util.stream.Collectors;
-
 public class SistemLab {
+
     private Pengguna penggunaAktif;
     private List<Aset> daftarAset;
     private List<Jadwal> daftarJadwal;
     private List<RuangLab> daftarRuang;
     private List<Pengajuan> daftarPengajuan;
 
-    public SistemLab(Pengguna pengguna, List<Aset> aset, List<Jadwal> jadwal, List<RuangLab> ruang, List<Pengajuan> pengajuan) {
+    public SistemLab(
+        Pengguna pengguna,
+        List<Aset> aset,
+        List<Jadwal> jadwal,
+        List<RuangLab> ruang,
+        List<Pengajuan> pengajuan
+    ) {
         this.penggunaAktif = pengguna;
         this.daftarAset = aset;
         this.daftarJadwal = jadwal;
@@ -35,7 +44,7 @@ public class SistemLab {
         }
     }
 
-    public void tampilkanMenuMahasiswa(Scanner scanner){
+    public void tampilkanMenuMahasiswa(Scanner scanner) {
         int pilihan;
         do {
             System.out.println("\n===== MENU MAHASISWA =====");
@@ -49,12 +58,23 @@ public class SistemLab {
             scanner.nextLine();
 
             switch (pilihan) {
-                case 1: manajemenJadwal(); break;
-                case 2: tampilkanAsetTersedia(); break;
-                case 3: peminjamanAset(scanner); break;
-                case 4: peminjamanLab(scanner); break;
-                case 0: System.out.println("Logout berhasil."); break;
-                default: System.out.println("Pilihan tidak valid.");
+                case 1:
+                    manajemenJadwal();
+                    break;
+                case 2:
+                    tampilkanAsetTersedia();
+                    break;
+                case 3:
+                    peminjamanAset(scanner);
+                    break;
+                case 4:
+                    peminjamanLab(scanner);
+                    break;
+                case 0:
+                    System.out.println("Logout berhasil.");
+                    break;
+                default:
+                    System.out.println("Pilihan tidak valid.");
             }
         } while (pilihan != 0);
     }
@@ -69,14 +89,26 @@ public class SistemLab {
             System.out.println("4. Manajemen Data");
             System.out.println("0. Logout");
             System.out.print("Pilih menu: ");
-            pilihan = scanner.nextInt(); scanner.nextLine();
+            pilihan = scanner.nextInt();
+            scanner.nextLine();
             switch (pilihan) {
-                case 1: manajemenPengajuan(scanner); break;
-                case 2: manajemenJadwal(); break;
-                case 3: tampilkanAsetTersedia(); break;
-                case 4: tampilkanMenuManajemenData(scanner); break;
-                case 0: System.out.println("Logout berhasil."); break;
-                default: System.out.println("Pilihan tidak valid.");
+                case 1:
+                    manajemenPengajuan(scanner);
+                    break;
+                case 2:
+                    manajemenJadwal();
+                    break;
+                case 3:
+                    tampilkanAsetTersedia();
+                    break;
+                case 4:
+                    tampilkanMenuManajemenData(scanner);
+                    break;
+                case 0:
+                    System.out.println("Logout berhasil.");
+                    break;
+                default:
+                    System.out.println("Pilihan tidak valid.");
             }
         } while (pilihan != 0);
     }
@@ -91,14 +123,26 @@ public class SistemLab {
             System.out.println("4. Manajemen Data");
             System.out.println("0. Logout");
             System.out.print("Pilih menu: ");
-            pilihan = scanner.nextInt(); scanner.nextLine();
+            pilihan = scanner.nextInt();
+            scanner.nextLine();
             switch (pilihan) {
-                case 1: manajemenPengajuan(scanner); break;
-                case 2: manajemenJadwal(); break;
-                case 3: tampilkanAsetTersedia(); break;
-                case 4: tampilkanMenuManajemenData(scanner); break;
-                case 0: System.out.println("Logout berhasil."); break;
-                default: System.out.println("Pilihan tidak valid.");
+                case 1:
+                    manajemenPengajuan(scanner);
+                    break;
+                case 2:
+                    manajemenJadwal();
+                    break;
+                case 3:
+                    tampilkanAsetTersedia();
+                    break;
+                case 4:
+                    tampilkanMenuManajemenData(scanner);
+                    break;
+                case 0:
+                    System.out.println("Logout berhasil.");
+                    break;
+                default:
+                    System.out.println("Pilihan tidak valid.");
             }
         } while (pilihan != 0);
     }
@@ -112,7 +156,7 @@ public class SistemLab {
         int pilihan = scanner.nextInt();
         scanner.nextLine();
 
-        switch(pilihan) {
+        switch (pilihan) {
             case 1:
                 manajemenAset(scanner);
                 break;
@@ -146,9 +190,10 @@ public class SistemLab {
     private void tampilkanAsetTersedia() {
         System.out.println("\n--- DAFTAR ASET TERSEDIA ---");
         System.out.println("----------------------------------------------");
-        daftarAset.stream()
-                .filter(aset -> aset.getJumlah() > 0)
-                .forEach(System.out::println);
+        daftarAset
+            .stream()
+            .filter(aset -> aset.getJumlah() > 0)
+            .forEach(System.out::println);
         System.out.println("----------------------------------------------");
         System.out.println("\nTekan Enter untuk kembali...");
         new Scanner(System.in).nextLine();
@@ -156,9 +201,10 @@ public class SistemLab {
 
     private void manajemenPengajuan(Scanner scanner) {
         System.out.println("\n--- MANAJEMEN PENGAJUAN ---");
-        List<Pengajuan> perluProses = daftarPengajuan.stream()
-                .filter(p -> p.getStatus() != Pengajuan.Status.APPROVED && p.getStatus() != Pengajuan.Status.REJECTED)
-                .collect(Collectors.toList());
+        List<Pengajuan> perluProses = daftarPengajuan
+            .stream()
+            .filter(p -> p.getStatus() != Pengajuan.Status.APPROVED && p.getStatus() != Pengajuan.Status.REJECTED)
+            .collect(Collectors.toList());
 
         if (perluProses.isEmpty()) {
             System.out.println("Tidak ada pengajuan aktif.");
@@ -167,27 +213,35 @@ public class SistemLab {
         perluProses.forEach(System.out::println);
 
         System.out.print("\nMasukkan ID pengajuan yang akan diproses (0 untuk batal): ");
-        int idProses = scanner.nextInt(); scanner.nextLine();
+        int idProses = scanner.nextInt();
+        scanner.nextLine();
         if (idProses == 0) return;
 
-        Pengajuan target = perluProses.stream().filter(p -> p.getId() == idProses).findFirst().orElse(null);
+        Pengajuan target = perluProses
+            .stream()
+            .filter(p -> p.getId() == idProses)
+            .findFirst()
+            .orElse(null);
         if (target == null) {
             System.out.println("ID tidak ditemukan.");
             return;
         }
 
         System.out.print("Pilih tindakan [1. Setujui] [2. Tolak]: ");
-        int tindakan = scanner.nextInt(); scanner.nextLine();
+        int tindakan = scanner.nextInt();
+        scanner.nextLine();
 
         if (tindakan == 1) {
             target.setujui(penggunaAktif);
             System.out.println("Anda telah menyetujui pengajuan ID " + target.getId());
-            if(target.getStatus() == Pengajuan.Status.APPROVED) {
+            if (target.getStatus() == Pengajuan.Status.APPROVED) {
                 System.out.println("Persetujuan LENGKAP. Pengajuan telah DISETUJUI.");
-                if(target.getTipe() == Pengajuan.Tipe.ASET) {
+                if (target.getTipe() == Pengajuan.Tipe.ASET) {
                     ((Aset) target.getItem()).pinjam(target.getJumlah());
+                    updateAsetFile();
                 } else {
                     daftarJadwal.add((Jadwal) target.getItem());
+                    updateJadwalFile();
                 }
             } else {
                 System.out.println("Menunggu persetujuan dari role lain.");
@@ -200,11 +254,12 @@ public class SistemLab {
 
     private void peminjamanAset(Scanner scanner) {
         System.out.println("\n--- FORMULIR PEMINJAMAN ASET ---");
-        List<Aset> asetTersedia = daftarAset.stream()
-                .filter(aset -> aset.getJumlah() > 0)
-                .collect(Collectors.toList());
+        List<Aset> asetTersedia = daftarAset
+            .stream()
+            .filter(aset -> aset.getJumlah() > 0)
+            .collect(Collectors.toList());
 
-        if (asetTersedia.isEmpty()){
+        if (asetTersedia.isEmpty()) {
             System.out.println("Maaf, tidak ada aset yang tersedia untuk dipinjam saat ini.");
             return;
         }
@@ -253,9 +308,9 @@ public class SistemLab {
         String kegiatan = scanner.nextLine();
 
         String finalKodeLab = kodeLab;
-        boolean bentrok = daftarJadwal.stream().anyMatch(j ->
-                j.getKodeLab().equals(finalKodeLab) && j.getHari().equalsIgnoreCase(hari)
-        );
+        boolean bentrok = daftarJadwal
+            .stream()
+            .anyMatch(j -> j.getKodeLab().equals(finalKodeLab) && j.getHari().equalsIgnoreCase(hari));
 
         if (bentrok) {
             System.out.println("Jadwal Ditolak. Lab sudah terisi pada hari tersebut.");
@@ -266,7 +321,7 @@ public class SistemLab {
         }
     }
 
-    private void manajemenAset(Scanner scanner){
+    private void manajemenAset(Scanner scanner) {
         System.out.println("\n--- MANAJEMEN DATA ASET ---");
         System.out.println("1. Tambah Aset Baru");
         System.out.println("2. Hapus Aset");
@@ -274,7 +329,7 @@ public class SistemLab {
         int pilihan = scanner.nextInt();
         scanner.nextLine();
 
-        if(pilihan == 1){
+        if (pilihan == 1) {
             System.out.println("Masukkan nama aset baru");
             String nama = scanner.nextLine();
             System.out.print("Masukkan Jumlah Awal:");
@@ -283,9 +338,10 @@ public class SistemLab {
 
             daftarAset.add(new Aset(nama, jumlah));
             System.out.println("Aset '" + nama + "' Berhasil ditambahkan.");
-        } else if (pilihan == 2){
+            updateAsetFile();
+        } else if (pilihan == 2) {
             System.out.println("Pilih aset yang akan dihapus:");
-            for(int i = 0; i < daftarAset.size(); i++){
+            for (int i = 0; i < daftarAset.size(); i++) {
                 System.out.println((i + 1) + ". " + daftarAset.get(i));
             }
             System.out.print("Masukkan nomor aset untuk dihapus: ");
@@ -296,16 +352,25 @@ public class SistemLab {
             int jumlahHapus = scanner.nextInt();
             scanner.nextLine();
 
-            if(nomorHapus > 0 && nomorHapus <= daftarAset.size() && jumlahHapus == daftarAset.get(nomorHapus-1).getJumlah()){
+            if (
+                nomorHapus > 0 &&
+                nomorHapus <= daftarAset.size() &&
+                jumlahHapus == daftarAset.get(nomorHapus - 1).getJumlah()
+            ) {
                 Aset asetDihapus = daftarAset.remove(nomorHapus - 1);
                 System.out.println("Aset '" + asetDihapus.getNamaAset() + "' Berhasil dihapus.");
-            } else if (nomorHapus > 0 && nomorHapus <= daftarAset.size() && jumlahHapus != daftarAset.get(nomorHapus-1).getJumlah()){
+                updateAsetFile();
+            } else if (
+                nomorHapus > 0 &&
+                nomorHapus <= daftarAset.size() &&
+                jumlahHapus != daftarAset.get(nomorHapus - 1).getJumlah()
+            ) {
                 int pengurangan = daftarAset.get(nomorHapus - 1).getJumlah() - jumlahHapus;
                 Aset asetDikurang = daftarAset.get(nomorHapus - 1);
                 asetDikurang.setJumlah(pengurangan);
                 System.out.println(jumlahHapus + " " + asetDikurang.getNamaAset() + "' Berhasil dihapus.");
-            }
-            else {
+                updateAsetFile();
+            } else {
                 System.out.println("Nomor tidak valid.");
             }
         }
@@ -331,7 +396,7 @@ public class SistemLab {
 
             daftarJadwal.add(new Jadwal(kegiatan, hari, waktu, kodeLab));
             System.out.println("Jadwal baru berhasil ditambahkan.");
-
+            updateJadwalFile();
         } else if (pilihan == 2) {
             System.out.println("Pilih jadwal yang akan dihapus:");
             for (int i = 0; i < daftarJadwal.size(); i++) {
@@ -344,10 +409,42 @@ public class SistemLab {
             if (nomorHapus > 0 && nomorHapus <= daftarJadwal.size()) {
                 Jadwal jadwalDihapus = daftarJadwal.remove(nomorHapus - 1);
                 System.out.println("Jadwal berhasil dihapus.");
+                updateJadwalFile();
             } else {
                 System.out.println("Nomor tidak valid.");
             }
         }
     }
 
+    private void updateAsetFile() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("list_aset.txt"))) {
+            for (Aset aset : daftarAset) {
+                // Tulis setiap aset dengan format "Nama;Jumlah"
+                writer.write(aset.getNamaAset() + ";" + aset.getJumlah());
+                writer.newLine(); // Pindah ke baris baru
+            }
+        } catch (IOException e) {
+            System.err.println("Error: Gagal memperbarui file list_aset.txt.");
+            e.printStackTrace();
+        }
+    }
+
+    private void updateJadwalFile() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("list_jadwal.txt"))) {
+            for (Jadwal jadwal : daftarJadwal) {
+                String line = String.join(
+                    ",",
+                    jadwal.getNamaKegiatan(),
+                    jadwal.getHari(),
+                    jadwal.getWaktu(),
+                    jadwal.getKodeLab()
+                );
+                writer.write(line);
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.err.println("Error: Gagal memperbarui file list_jadwal.txt.");
+            e.printStackTrace();
+        }
+    }
 }

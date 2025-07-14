@@ -17,9 +17,8 @@ public class Aset {
         return jumlah;
     }
 
-    public Aset setJumlah(int jumlah) {
+    public void setJumlah(int jumlah) {
         this.jumlah = jumlah;
-        return null;
     }
 
     public void pinjam(int jumlahPinjam){

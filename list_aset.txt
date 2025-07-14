@@ -1,4 +1,4 @@
-Komputer Desktop;15
+Komputer Desktop;1
 Proyektor;4
 Kabel HDMI;10
 Papan Tulis Digital;2

@@ -1,4 +1,4 @@
- 
+
 package sistemlab;
 
 import sistemlab.aset.Aset;
@@ -40,7 +40,7 @@ public class Main {
             System.out.println("---------------------------------------------");
  
             SistemLab sistem = new SistemLab(penggunaSaatIni, daftarAset, daftarJadwal, daftarRuang, daftarPengajuan);
-            sistem.tampilkanMenu(scanner); // Menu berjalan sampai pengguna logout
+            sistem.tampilkanMenu(scanner);
         }
 
         scanner.close();
@@ -61,7 +61,7 @@ public class Main {
         scanner.nextLine();
 
         if (pilihanRole == 0) {
-            return null; // Sinyal untuk keluar dari program
+            return null;
         }
 
         System.out.print("Masukkan ID Anda: ");
@@ -75,7 +75,7 @@ public class Main {
             case 3: return new AsistenLab(id, nama);
             default:
                 System.out.println("Pilihan tidak valid. Silakan coba lagi.");
-                return login(scanner); // Rekursif jika pilihan salah
+                return login(scanner);
         }
     }
 

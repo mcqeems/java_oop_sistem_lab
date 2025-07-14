@@ -64,8 +64,9 @@ public class SistemLab {
         do {
             System.out.println("\n===== MENU DOSEN =====");
             System.out.println("1. Setujui/Tolak Pengajuan");
-            System.out.println("2. Tampilkan Jadwal & Pengajuan Lab");
+            System.out.println("2. Tampilkan Jadwal");
             System.out.println("3. Lihat Ketersediaan Aset");
+            System.out.println("4. Manajemen Data");
             System.out.println("0. Logout");
             System.out.print("Pilih menu: ");
             pilihan = scanner.nextInt(); scanner.nextLine();
@@ -73,6 +74,7 @@ public class SistemLab {
                 case 1: manajemenPengajuan(scanner); break;
                 case 2: manajemenJadwal(); break;
                 case 3: tampilkanAsetTersedia(); break;
+                case 4: tampilkanMenuManajemenData(scanner); break;
                 case 0: System.out.println("Logout berhasil."); break;
                 default: System.out.println("Pilihan tidak valid.");
             }
@@ -84,8 +86,9 @@ public class SistemLab {
         do {
             System.out.println("\n===== MENU ASISTEN LAB =====");
             System.out.println("1. Setujui/Tolak Pengajuan");
-            System.out.println("2. Tampilkan Semua Jadwal & Pengajuan");
+            System.out.println("2. Tampilkan Semua Jadwal");
             System.out.println("3. Lihat Stok Semua Aset");
+            System.out.println("4. Manajemen Data");
             System.out.println("0. Logout");
             System.out.print("Pilih menu: ");
             pilihan = scanner.nextInt(); scanner.nextLine();
@@ -93,10 +96,35 @@ public class SistemLab {
                 case 1: manajemenPengajuan(scanner); break;
                 case 2: manajemenJadwal(); break;
                 case 3: tampilkanAsetTersedia(); break;
+                case 4: tampilkanMenuManajemenData(scanner); break;
                 case 0: System.out.println("Logout berhasil."); break;
                 default: System.out.println("Pilihan tidak valid.");
             }
         } while (pilihan != 0);
+    }
+
+    // --- BUAT METODE UNTUK MENU MANAJEMEN DATA ---
+    private void tampilkanMenuManajemenData(Scanner scanner) {
+        System.out.println("\n--- MENU MANAJEMEN DATA ---");
+        System.out.println("1. Kelola Aset (Tambah/Hapus)");
+        System.out.println("2. Kelola Jadwal (Tambah/Hapus)");
+        System.out.println("0. Kembali ke Menu Utama");
+        System.out.print("Pilih menu: ");
+        int pilihan = scanner.nextInt();
+        scanner.nextLine();
+
+        switch(pilihan) {
+            case 1:
+                manajemenAset(scanner);
+                break;
+            case 2:
+                manajemenJadwalAdmin(scanner);
+                break;
+            case 0:
+                return; // Kembali
+            default:
+                System.out.println("Pilihan tidak valid.");
+        }
     }
 
     private void manajemenJadwal() {
@@ -238,4 +266,79 @@ public class SistemLab {
             System.out.println("Pengajuan peminjaman lab berhasil dibuat dan menunggu persetujuan.");
         }
     }
+
+    private void manajemenAset(Scanner scanner){
+        System.out.println("\n--- MANAJEMEN DATA ASET ---");
+        System.out.println("1. Tambah Aset Baru");
+        System.out.println("2. Hapus Aset");
+        System.out.println("Pilih tindakan");
+        int pilihan = scanner.nextInt();
+        scanner.nextLine();
+
+        if(pilihan == 1){
+            System.out.println("Masukkan nama aset baru");
+            String nama = scanner.nextLine();
+            System.out.print("Masukkan Jumlah Awal:");
+            int jumlah = scanner.nextInt();
+            scanner.nextLine();
+
+            daftarAset.add(new Aset(nama, jumlah));
+            System.out.println("Aset '" + nama + "' Berhasil ditambahkan.");
+        } else if (pilihan == 2){
+            System.out.println("Pilih aset yang akan dihapus:");
+            for(int i = 0; i < daftarAset.size(); i++){
+                System.out.println((i + 1) + ". " + daftarAset.get(i));
+            }
+            System.out.print("Masukkan nomor aset untuk dihapus: ");
+            int nomorHapus = scanner.nextInt();
+            scanner.nextLine();
+
+            if(nomorHapus > 0 && nomorHapus <= daftarAset.size()){
+                Aset asetDihapus = daftarAset.remove(nomorHapus - 1);
+                System.out.println("Aset '" + asetDihapus.getNamaAset() + "' Berhasil dihapus.");
+            } else {
+                System.out.println("Nomor tidak valid.");
+            }
+        }
+    }
+
+    private void manajemenJadwalAdmin(Scanner scanner) {
+        System.out.println("\n--- MANAJEMEN DATA JADWAL ---");
+        System.out.println("1. Tambah Jadwal Baru");
+        System.out.println("2. Hapus Jadwal");
+        System.out.print("Pilih tindakan: ");
+        int pilihan = scanner.nextInt();
+        scanner.nextLine();
+
+        if (pilihan == 1) {
+            System.out.print("Masukkan nama kegiatan/mata kuliah: ");
+            String kegiatan = scanner.nextLine();
+            System.out.print("Masukkan hari (Contoh: Jumat): ");
+            String hari = scanner.nextLine();
+            System.out.print("Masukkan waktu (Contoh: 15:00-17:00): ");
+            String waktu = scanner.nextLine();
+            System.out.print("Masukkan kode lab (1=AI, 2=RPL, 3=Data Science): ");
+            String kodeLab = scanner.nextLine();
+
+            daftarJadwal.add(new Jadwal(kegiatan, hari, waktu, kodeLab));
+            System.out.println("Jadwal baru berhasil ditambahkan.");
+
+        } else if (pilihan == 2) {
+            System.out.println("Pilih jadwal yang akan dihapus:");
+            for (int i = 0; i < daftarJadwal.size(); i++) {
+                System.out.println((i + 1) + ". " + daftarJadwal.get(i));
+            }
+            System.out.print("Masukkan nomor jadwal untuk dihapus: ");
+            int nomorHapus = scanner.nextInt();
+            scanner.nextLine();
+
+            if (nomorHapus > 0 && nomorHapus <= daftarJadwal.size()) {
+                Jadwal jadwalDihapus = daftarJadwal.remove(nomorHapus - 1);
+                System.out.println("Jadwal berhasil dihapus.");
+            } else {
+                System.out.println("Nomor tidak valid.");
+            }
+        }
+    }
+
 }
